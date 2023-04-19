@@ -1,2 +1,21 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<main>
+  <p id="notice"><%= flash[:notice] %></p>
+    <div class="container">
+      <div class="row">
+        <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>
+          <h3><i class="fa-solid fa-industry"></i><strong>Cheat Sheet Factory</strong>へようこそ!!</h3>
+          <strong>CheatSeetFactoryでは</strong>
+          <p>学習の為に作成したチートシートの管理や他の人たちと気軽に共有をすることができます！</p>
+          <p>みんなで一緒に生産性を高めましょう!</p>
+          <div class="btn-wrapper col-10 mx-auto">
+            <div class="row">
+              <%= link_to "ログイン", new_user_session_path, class:"btn btn-info btn-sm btn-block mb-3 sign_in" %>
+            </div>
+            <div class="row">
+              <%= link_to "新規登録",new_user_registration_path,class:"btn btn-success btn-sm btn-block sign_up"  %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
