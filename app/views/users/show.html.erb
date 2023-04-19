@@ -1,2 +1,78 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<p id="notice"><%= flash[:notice] %></p>
+
+<main>
+<!--ここまでheaderとボディコンテンツの間-->
+    <p></p>
+    <div class="container px-5 px-sm-0">
+      <div class="row">
+<!--全部の箱完成、並べる-->
+        <div class="col-md-3">
+          <h2>User info</h2>
+          <%= image_tag @user.get_profile_image(100, 100) %>
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>name</th>
+                <th><%= @user.name %></th>
+              </tr>
+              <tr>
+                <th>introduction</th>
+                <th><%= @user.introduction %></th>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row">
+            <% if current_user.id == @user.id %>
+              <%= link_to edit_user_path(current_user.id),class: "btn btn-outline-secondary btn-block" do %>
+                <i class="fas fa-user-cog"></i>
+              <% end %>
+            <% else %>
+            <div class="btn btn-outline-secondary btn-block">
+              <i class="fas fa-user-cog"></i>
+            </div>
+            <% end %>
+          </div>
+          <div class="row">
+            <%= link_to new_sheet_path,class: "btn btn-outline-secondary btn-block" do %>
+            <i class="fas fa-user-cog"></i>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-md-8 offset-md-1">
+          <div class="card">
+            <div class="card-body">
+              <h2>自己紹介</h2>
+              <% if @user.introduction.blank? %>
+                <span>未記入</span>
+              <% else %>
+                <%= @user.introduction %>
+              <% end %>
+            
+            </div>
+          </div>
+          <h2>投稿履歴</h2>
+          <table class="table table-hover table-inverse">
+            <thead>
+              <tr>
+                <th>言語</th>
+                <th>タイトル</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @sheets.each do |sheet| %>
+              <tr>
+                <td><%= sheet.genre.name %></td>
+                <td><%= link_to sheet_path(sheet.id) do %>
+                    <%= sheet.title %>
+                    <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+</main>

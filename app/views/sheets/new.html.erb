@@ -1,2 +1,32 @@
-<h1>Sheets#new</h1>
-<p>Find me in app/views/sheets/new.html.erb</p>
+<main>
+  <div class='container'>
+    <div class='row'>
+      <div class="col-sm-12 col-md-6 px-5 px-sm-0 mx-auto text-center">
+        <%= render "devise/shared/error_messages", resource: @sheet %>
+        <h1>Cheat Sheet 新規投稿</h1>
+        <%= form_with model:@sheet do |f| %>
+        <div class="form-group">
+          <%= f.label :image, "画像" %><br>
+          <%= f.file_field :image %>
+        </div>
+        <div class="form-group">
+          <%= f.label :title, "タイトル" %><br>
+          <%= f.text_field :title %>
+        </div>
+        <div class="form-group">
+          <%= f.label :content, "コンテンツ" %><br>
+          <%= f.text_area :content %>
+        </div>
+        <div class="form-group">
+          <%= f.label :content, "コンテンツ" %><br>
+          <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-box", id:"genre"}) %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "新規作成", class: "btn btn-success" %>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</main>
