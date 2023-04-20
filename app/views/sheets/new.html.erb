@@ -1,9 +1,8 @@
-<main>
   <div class='container'>
     <div class='row'>
-      <div class="col-sm-12 col-md-6 px-5 px-sm-0 mx-auto text-center">
-        <%= render "devise/shared/error_messages", resource: @sheet %>
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
         <h1>Cheat Sheet 新規投稿</h1>
+        <%= render "devise/shared/error_messages", resource: @sheet %>
         <%= form_with model:@sheet do |f| %>
         <div class="form-group">
           <%= f.label :image, "画像" %><br>
@@ -14,19 +13,18 @@
           <%= f.text_field :title %>
         </div>
         <div class="form-group">
-          <%= f.label :content, "コンテンツ" %><br>
-          <%= f.text_area :content %>
+          <%= f.label :content, "内容" %><br>
+          <%= f.text_area :content, rows: 12, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= f.label :content, "コンテンツ" %><br>
+          <%= f.label :content, "言語" %><br>
           <%= f.collection_select(:genre_id, Genre.all, :id, :name, {}, {class:"select-box", id:"genre"}) %>
         </div>
         <div class="form-group">
           <%= f.submit "新規作成", class: "btn btn-success" %>
         </div>
         <% end %>
-
       </div>
     </div>
   </div>
-</main>
+  

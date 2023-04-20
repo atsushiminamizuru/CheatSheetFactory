@@ -9,39 +9,11 @@
   <div class="row">
       
     <div class="col-md-3">
+      <%= render "users/userinfo", current_user: current_user %>
       <div class="card">
         <div class="card-body text-center">
-          <h2>ユーザー情報</h2>
-          <%= image_tag current_user.get_profile_image(100, 100) %><br>
-          <%= current_user.name %>
-          <table class="table table-hover table-inverse table-sm small">
-            <thead>
-              <tr>
-                <th>投稿</th>
-                <th>フォロー</th>
-                <th>フォロワー</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>投稿数表示</td>
-                <td>フォロー数表示</td>
-                <td>フォロワー数表示</td>
-              </tr>
-            </tbody>
-          </table>
-          <%= link_to edit_user_path(current_user.id), class: "btn  btn-success  btn-block" do %>
-            ユーザー情報編集へ<i class="fas fa-user-cog"></i>
-          <% end %>
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <div class="card-body text-center">
-          <h2>新規投稿</h2>
-          <%= link_to new_sheet_path, class: "btn btn-success btn-block" do %>
-            新規投稿ページへ<i class="fas fa-arrow-circle-right"></i>
-          <% end %>
+          <h3>この投稿を</h3>
+          <div>いいねする/いいね中/本人非表示</div>
         </div>
       </div>
       <br>
@@ -53,15 +25,15 @@
     </div>
 
     <div class="col-md-8 offset-md-1">
-      <h2>Cheat Sheet詳細</h2>
+      <h2>Cheat Sheet 詳細</h2>
       <div class="text-center">
         <table class="table table-hover table-inverse">
-          <thead>
+          <thead class="bg-info">
             <tr>
               <th>Cheat Sheet</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="bg-white">
             <tr>
               <td><%= image_tag @sheet.image.variant(resize_to_limit: [300, 300]) %></td>
             </tr>
@@ -70,21 +42,19 @@
       </div>
       <div class="text-center">
         <table class="table table-hover table-inverse">
-          <thead>
+          <thead class="bg-info">
             <tr>
               <th>投稿者</th>
               <th>言語</th>
               <th>タイトル</th>
               <th>いいね数</th>
-              <% unless @sheet.user_id == current_user.id %>
-              <th>いいねする</th>
-              <% else %>
+              <% if @sheet.user_id == current_user.id %>
               <th>編集</th>
               <th>削除</th>
               <% end %>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="bg-white">
             <tr>
               <td>
                 <%= link_to user_path(@sheet.user.id) do %>
@@ -95,9 +65,7 @@
               <td><%= @sheet.genre.name %></td>
               <td><%= @sheet.title %></td>
               <td>いいね数の表示</td>
-              <% unless @sheet.user_id == current_user.id %>
-              <td>いいねするボタン</td>
-              <% else %>
+              <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to "削除",sheet_path, class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>
               <% end %>
@@ -107,12 +75,12 @@
       </div>
       <div class="text-center">
         <table class="table table-hover table-inverse">
-          <thead>
+          <thead class="bg-info">
             <tr>
               <th>内容</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="bg-white">
             <tr>
               <td><%= @sheet.content %></td>
             </tr>
@@ -121,14 +89,14 @@
       </div>
       <div class="text-center">
         <table class="table table-hover table-inverse">
-          <thead>
+          <thead class="bg-info">
             <tr>
               <th>コメント</th>
               <th>コメントの同一人物の場合編集</th>
               <th>コメントの同一人物の場合削除</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="bg-white">
             <tr>
               <td>コメントの内容最新順に一覧表示</td>
               <td>コメント同一人物の場合編集ボタン</td>

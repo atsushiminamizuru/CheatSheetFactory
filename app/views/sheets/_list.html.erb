@@ -1,0 +1,31 @@
+<div class="text-center">
+  <table class="table table-hover table-inverse">
+    <thead class="bg-info">
+      <tr>
+        <th>投稿者</th>
+        <th>言語</th>
+        <th>タイトル</th>
+        <th>いいね数</th>
+      </tr>
+    </thead>
+    <tbody class="bg-white">
+      <% sheets.each do |sheet| %>
+      <tr>
+        <td>
+          <%= link_to user_path(sheet.user.id) do %>
+            <%= image_tag sheet.user.get_profile_image(70, 70) %><br>
+            <%= sheet.user.name %>
+          <% end %>
+        </td>
+        <td><%= sheet.genre.name %></td>
+        <td>
+          <%= link_to sheet_path(sheet.id) do %>
+            <%= sheet.title %>
+          <% end %>
+        </td>
+        <td>いいね数の表示</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

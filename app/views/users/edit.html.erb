@@ -1,9 +1,8 @@
-<main>
   <div class='container'>
     <div class='row'>
       <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
         <h2>ユーザー情報編集</h2>
-        
+        <%= render "devise/shared/error_messages", resource: @user %>
         <%= form_with model:@user do |f| %>
         <div class="form-group">
           <%= f.label :profile_image, "プロフィール画像" %><br>
@@ -15,7 +14,7 @@
         </div>
         <div class="form-group">
           <%= f.label :introduction, "自己紹介" %><br>
-          <%= f.text_area :introduction %>
+          <%= f.text_area :introduction, rows: 15, class: "form-control" %>
         </div>
         <div class="form-group">
           <%= f.submit "更新", class: "btn btn-success" %>
@@ -24,5 +23,3 @@
       </div>
     </div>
   </div>
-
-</main>
