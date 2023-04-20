@@ -18,6 +18,8 @@ class UsersController < ApplicationController
       render :edit
     end
   end
+  
+  private
 
   def user_params
     params.require(:user).permit(:introduction, :name, :profile_image)
@@ -28,3 +30,4 @@ class UsersController < ApplicationController
     redirect_to user_path(@user.id) unless current_user.id == @user.id
   end
 end
+

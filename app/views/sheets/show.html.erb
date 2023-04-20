@@ -1,79 +1,144 @@
-<p>><%= flash[:notice] %></p>
-<main>
-<!--ここまでheaderとボディコンテンツの間-->
-    <p></p>
-    <div class="container px-5 px-sm-0">
+<div class="container px-5 px-sm-0">
+  
+  <% if flash[:notice] %>
+  <div class="alert alert-success text-center" role="alert">
+    <%= flash[:notice] %>
+  </div>
+  <% end %>
+  
+  <div class="row">
       
-      <div class="row">
-<!--全部の箱完成、並べる-->
-        <div class="col-md-3">
-          <h2>User info</h2>
-          <%= image_tag current_user.get_profile_image(100, 100) %>
-          <table class="table">
-            <tbody>
-              <tr>
-                <th>name</th>
-                <th><%= current_user.name %></th>
-              </tr>
-              <tr>
-                <th>introduction</th>
-                <th><%= current_user.introduction %></th>
-              </tr>
-            </tbody>
-          </table>
-          <div class="row">
-            <%= link_to edit_user_path(current_user.id),class: "btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog"></i>
-            <% end %>
-          </div>
-          <div class="row">
-            <%= link_to new_sheet_path,class: "btn btn-outline-secondary btn-block" do %>
-            <i class="fas fa-user-cog"></i>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="col-md-8 offset-md-1">
-          <h2>CheatSheet詳細</h2>
-          <table class="table table-hover table-inverse">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <h2>ユーザー情報</h2>
+          <%= image_tag current_user.get_profile_image(100, 100) %><br>
+          <%= current_user.name %>
+          <table class="table table-hover table-inverse table-sm small">
             <thead>
               <tr>
-                <th>プロフィール画像</th>
-                <th>投稿者名</th>
-                <th>言語</th>
-                <th>タイトル</th>
+                <th>投稿</th>
+                <th>フォロー</th>
+                <th>フォロワー</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
-                  <%= link_to user_path(@sheet.user.id) do %>
-                    <%= image_tag @sheet.user.get_profile_image(100, 100) %>
-                  <% end %>
-                </td>
-                <td>
-                  <%= link_to user_path(@sheet.user.id) do %>
-                    <%= @sheet.user.name %>
-                  <% end %>
-                </td>
-                <td><%= @sheet.genre.name %></td>
-                <td><%= @sheet.title %></td>
-                <% if @sheet.user_id == current_user.id %>
-                <td>
-                  <%= link_to "編集",edit_sheet_path(@sheet.id),class: "btn btn-sm btn-success" %>
-                </td>
-                <td>
-                  <%= link_to "削除",sheet_path,class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %>
-                </td>
-                <% end %>
+                <td>投稿数表示</td>
+                <td>フォロー数表示</td>
+                <td>フォロワー数表示</td>
               </tr>
             </tbody>
           </table>
-          <%= @sheet.content %>
-          <%= image_tag @sheet.image.variant(resize_to_limit: [700, 700]) %>
-          </li>
+          <%= link_to edit_user_path(current_user.id), class: "btn  btn-success  btn-block" do %>
+            ユーザー情報編集へ<i class="fas fa-user-cog"></i>
+          <% end %>
         </div>
-
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body text-center">
+          <h2>新規投稿</h2>
+          <%= link_to new_sheet_path, class: "btn btn-success btn-block" do %>
+            新規投稿ページへ<i class="fas fa-arrow-circle-right"></i>
+          <% end %>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body text-center">
+          <h2>コメント投稿</h2>
+        </div>
       </div>
     </div>
-</main>
+
+    <div class="col-md-8 offset-md-1">
+      <h2>Cheat Sheet詳細</h2>
+      <div class="text-center">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>Cheat Sheet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= image_tag @sheet.image.variant(resize_to_limit: [300, 300]) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>投稿者</th>
+              <th>言語</th>
+              <th>タイトル</th>
+              <th>いいね数</th>
+              <% unless @sheet.user_id == current_user.id %>
+              <th>いいねする</th>
+              <% else %>
+              <th>編集</th>
+              <th>削除</th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@sheet.user.id) do %>
+                  <%= image_tag @sheet.user.get_profile_image(70, 70) %><br>
+                  <%= @sheet.user.name %>
+                <% end %>
+              </td>
+              <td><%= @sheet.genre.name %></td>
+              <td><%= @sheet.title %></td>
+              <td>いいね数の表示</td>
+              <% unless @sheet.user_id == current_user.id %>
+              <td>いいねするボタン</td>
+              <% else %>
+              <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
+              <td><%= link_to "削除",sheet_path, class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>内容</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @sheet.content %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th>コメント</th>
+              <th>コメントの同一人物の場合編集</th>
+              <th>コメントの同一人物の場合削除</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>コメントの内容最新順に一覧表示</td>
+              <td>コメント同一人物の場合編集ボタン</td>
+              <td>コメント同一人物の場合編集ボタン</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  
+</div>
