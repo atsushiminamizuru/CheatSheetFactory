@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :matching_login_user, only: [:edit, :update]
   def show
     @user = User.find(params[:id])
-    @sheets = @user.sheets
+    @sheets = @user.sheets.order(created_at: :desc)
   end
 
   def edit

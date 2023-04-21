@@ -7,6 +7,9 @@ class Sheet < ApplicationRecord
   validates :content, presence: true
   validates :image, presence: true
 
+  validates :title, length: { maximum: 50 }
+  validates :content, length: { maximum: 300 }
+
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :genre
 
