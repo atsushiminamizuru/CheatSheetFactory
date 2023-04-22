@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   
   resources :sheets do
+    resources :comments, only:[:create, :update, :destroy, :edit]
     collection do
       get 'search'
     end

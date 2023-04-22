@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_083757) do
+ActiveRecord::Schema.define(version: 2023_04_22_152558) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 2023_04_19_083757) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "text", null: false
+    t.integer "user_id", null: false
+    t.integer "sheet_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sheet_id"], name: "index_comments_on_sheet_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "sheets", force: :cascade do |t|
     t.string "title", null: false
     t.text "content", null: false
@@ -66,5 +76,7 @@ ActiveRecord::Schema.define(version: 2023_04_19_083757) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "sheets"
+  add_foreign_key "comments", "users"
   add_foreign_key "sheets", "users"
 end
