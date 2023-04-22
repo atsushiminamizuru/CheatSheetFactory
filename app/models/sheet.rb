@@ -14,4 +14,12 @@ class Sheet < ApplicationRecord
   belongs_to :genre
 
   validates :genre_id, numericality: { other_than: 0, message: "can't be blank" }
+
+  def self.search(search)
+    if search != ''
+      Sheet.where('title LIKE(?)', "%#{search}%").order('created_at DESC')
+    else
+      Sheet.includes(:user).order('created_at DESC')
+    end
+  end
 end

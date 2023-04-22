@@ -42,6 +42,11 @@ class SheetsController < ApplicationController
     redirect_to sheets_path
   end
 
+  def search
+    @sheets = Sheet.search(params[:keyword])
+    render :index
+  end
+
   private
 
   def sheet_params

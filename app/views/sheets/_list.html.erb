@@ -8,6 +8,7 @@
         <th>いいね数</th>
       </tr>
     </thead>
+    <% if sheets.present? %>
     <tbody class="bg-white">
       <% sheets.each do |sheet| %>
       <tr>
@@ -27,5 +28,14 @@
       </tr>
       <% end %>
     </tbody>
+    <% else %>
+    <tbody class="bg-white">
+      <tr>
+        <td colspan="4">
+          <h4>検索結果はありません</h4>
+        </td>
+      </tr>
+    </tbody>
+    <% end %>
   </table>
 </div>
