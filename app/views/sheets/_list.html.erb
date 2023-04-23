@@ -13,7 +13,7 @@
       <% sheets.each do |sheet| %>
       <tr>
         <td>
-          <%= link_to user_path(sheet.user.id) do %>
+          <%= link_to user_path(sheet.user_id) do %>
             <%= image_tag sheet.user.get_profile_image(70, 70) %><br>
             <%= sheet.user.name %>
           <% end %>
