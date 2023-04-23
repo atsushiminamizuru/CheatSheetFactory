@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :comments_matching_login_user, only: [:edit, :update, :destroy]
+  before_action :render_sheets_show, only: [:create, :edit, :update]
   
   def create
     @comment = Comment.new(comment_params)
@@ -7,15 +8,11 @@ class CommentsController < ApplicationController
       flash[:notice] = 'It succeeded beautifully.'
       redirect_to sheet_path(@comment.sheet_id)
     else
-      @sheet = Sheet.find(params[:sheet_id])
-      @comments = @sheet.comments.includes(:user).order('created_at DESC')
       render :"sheets/show"
     end
   end
 
   def edit
-    @sheet = Sheet.find(params[:sheet_id])
-    @comments = @sheet.comments.includes(:user).order('created_at DESC')
     render :"sheets/show"
   end
 
@@ -24,8 +21,6 @@ class CommentsController < ApplicationController
       flash[:notice] = 'It succeeded beautifully.'
       redirect_to sheet_path(@comment.sheet_id)
     else
-      @sheet = Sheet.find(params[:sheet_id])
-      @comments = @sheet.comments.includes(:user).order('created_at DESC')
       render :"sheets/show"
     end
   end
@@ -45,6 +40,11 @@ class CommentsController < ApplicationController
   def comments_matching_login_user
     @comment = Comment.find(params[:id])
     redirect_to root_path unless current_user.id == @commnent.user_id
+  end
+  
+  def render_sheets_show
+    @sheet = Sheet.find(params[:sheet_id])
+    @comments = @sheet.comments.includes(:user).order('created_at DESC')
   end
   
 end
