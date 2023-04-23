@@ -41,6 +41,7 @@ class SheetsController < ApplicationController
   def destroy
     @sheet = Sheet.find(params[:id])
     @sheet.destroy
+    flash[:notice] = 'It succeeded beautifully.'
     redirect_to sheets_path
   end
 
