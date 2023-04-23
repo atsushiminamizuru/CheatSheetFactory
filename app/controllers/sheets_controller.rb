@@ -1,5 +1,6 @@
 class SheetsController < ApplicationController
-  before_action :matching_login_user?, only: [:edit, :update, :destroy]
+  before_action :sheets_matching_login_user, only: [:edit, :update, :destroy]
+  
   def new
     @sheet = Sheet.new
   end
@@ -56,8 +57,8 @@ class SheetsController < ApplicationController
     params.require(:sheet).permit(:title, :content, :genre_id, :image).merge(user_id: current_user.id)
   end
 
-  def matching_login_user?
+  def sheets_matching_login_user
     @sheet = Sheet.find(params[:id])
-    redirect_to sheets_path unless current_user.id == @sheet.user_id
+    redirect_to root_path unless current_user.id == @sheet.user_id
   end
 end

@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :comments_matching_login_user, only: [:edit, :update, :destroy]
+  
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
@@ -41,5 +43,10 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:text).merge(user_id: current_user.id, sheet_id: params[:sheet_id])
+  end
+  
+  def comments_matching_login_user
+    @comment = Comment.find(params[:id])
+    redirect_to root_path unless current_user.id == @commnent.user_id
   end
 end

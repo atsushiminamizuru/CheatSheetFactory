@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :matching_login_user, only: [:edit, :update]
+  before_action :users_matching_login_user, only: [:edit, :update]
+  
   def show
     @user = User.find(params[:id])
     @sheets = @user.sheets.includes(:user).order(created_at: :desc)
@@ -25,8 +26,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:introduction, :name, :profile_image)
   end
 
-  def matching_login_user
+  def users_matching_login_user
     @user = User.find(params[:id])
-    redirect_to user_path(@user.id) unless current_user.id == @user.id
+    redirect_to root_path unless current_user.id == @user.id
   end
 end
