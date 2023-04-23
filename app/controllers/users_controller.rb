@@ -7,11 +7,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = 'It succeeded beautifully.'
       redirect_to user_path(@user.id)
@@ -30,4 +28,5 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     redirect_to root_path unless current_user.id == @user.id
   end
+  
 end

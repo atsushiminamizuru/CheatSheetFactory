@@ -26,11 +26,9 @@ class SheetsController < ApplicationController
   end
 
   def edit
-    @sheet = Sheet.find(params[:id])
   end
 
   def update
-    @sheet = Sheet.find(params[:id])
     if @sheet.update(sheet_params)
       flash[:notice] = 'It succeeded beautifully.'
       redirect_to sheet_path(@sheet.id)
@@ -40,7 +38,6 @@ class SheetsController < ApplicationController
   end
 
   def destroy
-    @sheet = Sheet.find(params[:id])
     @sheet.destroy
     flash[:notice] = 'It succeeded beautifully.'
     redirect_to sheets_path
@@ -61,4 +58,5 @@ class SheetsController < ApplicationController
     @sheet = Sheet.find(params[:id])
     redirect_to root_path unless current_user.id == @sheet.user_id
   end
+  
 end
