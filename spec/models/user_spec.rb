@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
       it 'passwordとpassword_confirmationが一致していれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'nameが20文字以下であれば登録できる' do
+      it 'nameが固有かつ20文字以下であれば登録できる' do
         expect(@user).to be_valid
       end
       it 'introductionが200文字以下であれば登録できる' do
