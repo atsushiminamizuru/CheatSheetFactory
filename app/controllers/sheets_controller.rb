@@ -1,6 +1,6 @@
 class SheetsController < ApplicationController
   before_action :sheets_matching_login_user, only: [:edit, :update, :destroy]
-  
+
   def new
     @sheet = Sheet.new
   end
@@ -58,5 +58,4 @@ class SheetsController < ApplicationController
     @sheet = Sheet.find(params[:id])
     redirect_to root_path unless current_user.id == @sheet.user_id
   end
-  
 end
