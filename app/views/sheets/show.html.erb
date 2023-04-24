@@ -24,7 +24,7 @@
           <% if @comment.persisted? %>
             <%= form_with model: @comment, url: sheet_comment_path(sheet_id: @sheet.id, id: @comment.id), method: :patch  do |f| %>
             <div class="form-group">
-              <%= f.text_area :text, autofocus: true, rows: 9, class: "form-control" %>
+              <%= f.text_area :text, autofocus: true, rows: 9, class: "form-control", required: true, maxlength: 100 %>
             </div>
             <div class="form-group text-center">
               <%= f.submit "コメント更新", class: "btn btn-success" %>
@@ -33,7 +33,7 @@
           <% else %>
             <%= form_with model: @comment, url: sheet_comments_path(sheet_id: @sheet.id), method: :post  do |f| %>
             <div class="form-group">
-              <%= f.text_area :text, placeholder: "コメント入力", rows: 9, class: "form-control" %>
+              <%= f.text_area :text, placeholder: "コメント入力(１００文字以内で入力して下さい）", rows: 9, class: "form-control", required: true, maxlength: 100 %>
             </div>
             <div class="form-group text-center">
               <%= f.submit "コメント作成", class: "btn btn-success" %>
@@ -87,7 +87,7 @@
               <td>いいね数の表示</td>
               <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
-              <td><%= link_to "削除",sheet_path, class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>
+              <td><%= link_to "削除",sheet_path(@sheet.id), class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>
               <% end %>
             </tr>
           </tbody>

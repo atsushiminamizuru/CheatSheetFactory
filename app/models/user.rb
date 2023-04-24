@@ -1,24 +1,22 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
   has_many :sheets, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   has_one_attached :profile_image
-
+  
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, length: { maximum: 20 }
-
-  validates :introduction, length: { maximum: 200 }
-
+  
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+         
   validates :password, format: {
     with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
     message: 'is invalid. Include both letters and numbers'
-  }
+  }, on: :create
+
+  validates :introduction, length: { maximum: 200 }
 
   def get_profile_image(width, height)
     unless profile_image.attached?
