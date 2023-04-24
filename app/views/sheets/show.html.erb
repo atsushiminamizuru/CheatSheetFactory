@@ -105,12 +105,13 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div><br>
+      <h4>コメント</h4>
       <div class="text-center">
         <table class="table table-hover table-inverse">
           <thead class="bg-info">
             <tr>
-              <th>コメント<br>投稿者</th>
+              <th>投稿者</th>
               <th>コメント</th>
               <% if @comments.any? { |comment| comment.user_id == current_user.id } %>
               <th>編集</th>
