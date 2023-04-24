@@ -13,11 +13,13 @@
       <div class="card">
         <div class="card-body text-center">
           <h2>投稿検索</h2>
-        </div>
-        <div class="mx-auto">
-          <%= form_with(url: search_sheets_path, method: :get, class: "search-form") do |f| %>
-            <%= f.search_field :keyword, placeholder: "キーワード入力", class: "search-input" %>
-            <%= f.submit "検索", class: "search-btn" %>
+          <%= form_with(url: search_sheets_path, method: :get) do |f| %>
+          <div class="form-group">
+            <%= f.search_field :keyword, placeholder: "キーワード入力", class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.submit "検索", class: "btn btn-success" %>
+          </div>
           <% end %>
         </div>
       </div>
