@@ -73,8 +73,9 @@
               <th>いいね数</th>
             </tr>
           </thead>
+          <% if @sheets.present? %>
           <tbody class="bg-white">
-          <% @sheets.each do |sheet| %>
+            <% @sheets.each do |sheet| %>
             <tr>
               <td>
                 <%= image_tag sheet.user.get_profile_image(70, 70) %><br>
@@ -88,8 +89,17 @@
               </td>
               <td>いいね数の表示</td>
             </tr>
-          <% end %>
+            <% end %>
           </tbody>
+          <% else %>
+          <tbody class="bg-white">
+            <tr>
+              <td colspan="4">
+                <h4>投稿はまだありません</h4>
+              </td>
+            </tr>
+          </tbody>
+          <% end %>
         </table>
       </div>
     </div>

@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
 
   def comments_matching_login_user
     @comment = Comment.find(params[:id])
-    redirect_to root_path unless current_user.id == @commnent.user_id
+    redirect_to root_path unless current_user.id == @comment.user_id
   end
 
   def render_sheets_show

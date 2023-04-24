@@ -18,29 +18,29 @@
       </div>
       <br>
       <div class="card">
-        <div class="card-body text-center">
-          <h2>コメント投稿</h2>
+        <div class="card-body">
+          <h2 class="text-center">コメント投稿</h2>
+          <%= render "devise/shared/error_messages", resource: @comment %>
+          <% if @comment.persisted? %>
+            <%= form_with model: @comment, url: sheet_comment_path(sheet_id: @sheet.id, id: @comment.id), method: :patch  do |f| %>
+            <div class="form-group">
+              <%= f.text_area :text, autofocus: true, rows: 9, class: "form-control" %>
+            </div>
+            <div class="form-group text-center">
+              <%= f.submit "コメント更新", class: "btn btn-success" %>
+            </div>
+            <% end %>
+          <% else %>
+            <%= form_with model: @comment, url: sheet_comments_path(sheet_id: @sheet.id), method: :post  do |f| %>
+            <div class="form-group">
+              <%= f.text_area :text, placeholder: "コメント入力", rows: 9, class: "form-control" %>
+            </div>
+            <div class="form-group text-center">
+              <%= f.submit "コメント作成", class: "btn btn-success" %>
+            </div>
+            <% end %>
+          <% end %>
         </div>
-        <%= render "devise/shared/error_messages", resource: @comment %>
-        <% if @comment.persisted? %>
-          <%= form_with model: @comment, url: sheet_comment_path(sheet_id: @sheet.id, id: @comment.id), method: :patch  do |f| %>
-          <div class="form-group">
-            <%= f.text_area :text, autofocus: true, rows: 7, class: "form-control" %>
-          </div>
-          <div class="form-group d-flex justify-content-center">
-            <%= f.submit "コメント更新", class: "btn btn-success" %>
-          </div>
-          <% end %>
-        <% else %>
-          <%= form_with model: @comment, url: sheet_comments_path(@sheet.id), method: :post  do |f| %>
-          <div class="form-group">
-            <%= f.text_area :text, placeholder: "コメント入力", rows: 7, class: "form-control" %>
-          </div>
-          <div class="form-group d-flex justify-content-center">
-            <%= f.submit "コメント作成", class: "btn btn-success" %>
-          </div>
-          <% end %>
-        <% end %>
       </div>
     </div>
 
@@ -111,7 +111,7 @@
         <table class="table table-hover table-inverse">
           <thead class="bg-info">
             <tr>
-              <th>コメント投稿者</th>
+              <th>コメント<br>投稿者</th>
               <th>コメント</th>
               <% if @comments.any? { |comment| comment.user_id == current_user.id } %>
               <th>編集</th>
@@ -119,6 +119,7 @@
               <% end %>
             </tr>
           </thead>
+          <% if @comments.present? %>
           <tbody class="bg-white">
             <% @comments.each do |comment| %>
             <tr>
@@ -140,6 +141,15 @@
             </tr>
             <% end %>
           </tbody>
+          <% else %>
+          <tbody class="bg-white">
+            <tr>
+              <td colspan="2">
+                <h4>コメントはまだありません</h4>
+              </td>
+            </tr>
+          </tbody>
+          <% end %>
         </table>
       </div>
     </div>

@@ -28,11 +28,19 @@
       </tr>
       <% end %>
     </tbody>
-    <% else %>
+    <% elsif params[:commit].present? %>
     <tbody class="bg-white">
       <tr>
         <td colspan="4">
           <h4>検索結果はありません</h4>
+        </td>
+      </tr>
+    </tbody>
+    <% else %>
+    <tbody class="bg-white">
+      <tr>
+        <td colspan="4">
+          <h4>投稿はまだありません</h4>
         </td>
       </tr>
     </tbody>
