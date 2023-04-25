@@ -1,16 +1,17 @@
 class User < ApplicationRecord
   has_many :sheets, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :profile_image
-  
+
   validates :name, presence: true
   validates :name, uniqueness: true
   validates :name, length: { maximum: 20 }
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   validates :password, format: {
     with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
     message: 'is invalid. Include both letters and numbers'

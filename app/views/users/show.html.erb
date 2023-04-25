@@ -38,7 +38,11 @@
               <td><%= "#{@user.sheets.count}個" %></td>
               <td>フォロー数の表示</td>
               <td>フォローワー数の表示</td>
-              <td>いいね数の表示</td>
+              <td>
+                <%= link_to user_favorites_path(user_id: @user.id) do %>
+                  <%= "#{@user.favorites.count}回" %>
+                <% end %>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -87,7 +91,7 @@
                   <%= sheet.title %>
                 <% end %>
               </td>
-              <td>いいね数の表示</td>
+              <td><%= "#{sheet.favorites.count}" %></td>
             </tr>
             <% end %>
           </tbody>

@@ -24,7 +24,7 @@
             <%= sheet.title %>
           <% end %>
         </td>
-        <td>いいね数の表示</td>
+        <td><%= "#{sheet.favorites.count}" %></td>
       </tr>
       <% end %>
     </tbody>
@@ -40,7 +40,7 @@
     <tbody class="bg-white">
       <tr>
         <td colspan="4">
-          <h4>投稿はまだありません</h4>
+          <h4>ここにはまだ何もありません</h4>
         </td>
       </tr>
     </tbody>

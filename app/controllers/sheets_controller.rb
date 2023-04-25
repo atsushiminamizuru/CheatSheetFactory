@@ -23,6 +23,7 @@ class SheetsController < ApplicationController
     @sheet = Sheet.find(params[:id])
     @comment = Comment.new
     @comments = @sheet.comments.includes(:user).order('created_at DESC')
+    @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
   end
 
   def edit
