@@ -17,6 +17,6 @@ class FavoritesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     user_favorites_sheets = @user.favorites.includes(sheet: :user).order('favorites.created_at DESC')
-    @user_favoritesheets = user_favorites_sheets.map(&:sheet)
+    @user_favorite_sheets = user_favorites_sheets.map(&:sheet)
   end
 end
