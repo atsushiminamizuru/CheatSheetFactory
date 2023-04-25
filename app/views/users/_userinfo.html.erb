@@ -6,20 +6,20 @@
     <table class="table table-hover table-inverse small">
       <thead>
         <tr>
-          <th class="text-nowrap">投稿</th>
-          <th class="text-nowrap">フォロー</th>
-          <th class="text-nowrap">フォロワー</th>
+          <th "text-nowrap">
+            <%= link_to user_path(current_user.id) do %>
+              <%= "#{current_user.sheets.count}" %>
+            <% end %>
+          </th>
+          <th "text-nowrap">フォロー数</th>
+          <th "text-nowrap">フォロワー数</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td "text-nowrap">
-            <%= link_to user_path(current_user.id) do %>
-              <%= "#{current_user.sheets.count}" %>
-            <% end %>
-          </td>
-          <td "text-nowrap">フォロー数表示</td>
-          <td "text-nowrap">フォロワー数表示</td>
+          <td class="text-nowrap">投稿</td>
+          <td class="text-nowrap">フォロー</td>
+          <td class="text-nowrap">フォロワー</td>
         </tr>
       </tbody>
     </table>
