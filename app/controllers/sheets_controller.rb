@@ -16,13 +16,13 @@ class SheetsController < ApplicationController
   end
 
   def index
-    @sheets = Sheet.includes(:user).order('created_at DESC')
+    @sheets = Sheet.includes(:user).order(created_at: :DESC)
   end
 
   def show
     @sheet = Sheet.find(params[:id])
     @comment = Comment.new
-    @comments = @sheet.comments.includes(:user).order('created_at DESC')
+    @comments = @sheet.comments.includes(:user).order(created_at: :DESC)
     @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
   end
 
@@ -32,7 +32,7 @@ class SheetsController < ApplicationController
   def update
     if @sheet.update(sheet_params)
       flash[:notice] = 'It succeeded beautifully.'
-      redirect_to sheet_path(@sheet.id)
+      redirect_to sheet_path(id: params[:id])
     else
       render :edit
     end

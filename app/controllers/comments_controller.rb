@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       flash[:notice] = 'It succeeded beautifully.'
-      redirect_to sheet_path(@comment.sheet_id)
+      redirect_to sheet_path(id: params[:sheet_id])
     else
       render :"sheets/show"
     end
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   def update
     if @comment.update(comment_params)
       flash[:notice] = 'It succeeded beautifully.'
-      redirect_to sheet_path(@comment.sheet_id)
+      redirect_to sheet_path(id: params[:sheet_id])
     else
       render :"sheets/show"
     end
@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     flash[:notice] = 'It succeeded beautifully.'
-    redirect_to sheet_path(@comment.sheet_id)
+    redirect_to sheet_path(id: params[:sheet_id])
   end
 
   private
@@ -44,6 +44,6 @@ class CommentsController < ApplicationController
 
   def render_sheets_show
     @sheet = Sheet.find(params[:sheet_id])
-    @comments = @sheet.comments.includes(:user).order('created_at DESC')
+    @comments = @sheet.comments.includes(:user).order(created_at: :DESC)
   end
 end

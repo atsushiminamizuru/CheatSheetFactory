@@ -12,8 +12,19 @@
       <%= render "userinfo", currentuser: current_user %>
       <div class="card">
         <div class="card-body text-center">
+        <% if current_user.id == @user.id %>
+          <h3>このユーザーは</h3><br>
+          <h3>自分です</h3>
+        <% else %>
           <h3>このユーザーを</h3>
-          <div>フォローする/フォロー中/本人非表示</div>
+          <div id="relationship-btn<%= @user.id %>">
+            <% if @relationship.present? %>
+              <%= link_to "フォロー済", user_relationship_path(user_id: @user.id, id: @relationship.id),  method: :delete, class: "btn btn-danger" %>
+            <% else %>
+              <%= link_to "フォローする", user_relationships_path(user_id: @user.id), method: :post, class: "btn btn-success" %>
+            <% end %>
+          </div>
+        <% end %>
         </div>
       </div>
     </div>
@@ -36,8 +47,16 @@
             <tr>
               <td><%= image_tag @user.get_profile_image(70, 70) %></td>
               <td><%= "#{@user.sheets.count}個" %></td>
-              <td>フォロー数の表示</td>
-              <td>フォローワー数の表示</td>
+              <td>
+                <%= link_to user_followings_path(user_id: @user.id) do %>
+                  <%= "#{@user.followings.count}人" %>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to user_followers_path(user_id: @user.id) do %>
+                  <%= "#{@user.followers.count}人" %>
+                <% end %>
+              </td>
               <td>
                 <%= link_to user_favorites_path(user_id: @user.id) do %>
                   <%= "#{@user.favorites.count}回" %>

@@ -7,6 +7,7 @@
           <div class="mx-auto text-center">
             <p>メールアドレスとパスワード<br>を入力してください。</p>
           </div>
+          <%= render "devise/shared/error_messages", resource: resource %>
           <%= form_with model: @user, url: user_session_path do |f| %>
             <div class="input-group mb-3">
               <div class="input-group-prepend">

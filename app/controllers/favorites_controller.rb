@@ -3,7 +3,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(user_id: current_user.id, sheet_id: params[:sheet_id])
     @favorite.save
     flash[:notice] = 'It succeeded beautifully.'
-    redirect_to sheet_path(@favorite.sheet_id)
+    redirect_to sheet_path(id: params[:sheet_id])
   end
 
   def destroy
@@ -11,7 +11,7 @@ class FavoritesController < ApplicationController
     redirect_to root_path unless current_user.id == @favorite.user_id
     @favorite.destroy
     flash[:notice] = 'It succeeded beautifully.'
-    redirect_to sheet_path(@favorite.sheet_id)
+    redirect_to sheet_path(id: params[:sheet_id])
   end
 
   def index

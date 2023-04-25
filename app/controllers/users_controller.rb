@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @sheets = @user.sheets.includes(:user).order(created_at: :desc)
+    @sheets = @user.sheets.includes(:user).order(created_at: :DESC)
+    @relationship = Relationship.find_by(following_id: current_user.id, follower_id: @user.id)
   end
 
   def edit
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notice] = 'It succeeded beautifully.'
-      redirect_to user_path(@user.id)
+      redirect_to user_path(id: params[:id])
     else
       render :edit
     end
