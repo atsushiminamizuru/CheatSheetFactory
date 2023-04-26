@@ -94,7 +94,7 @@
                 <% end %>
               </td>
               <td><%= @sheet.genre.name %></td>
-              <td><%= @sheet.title %></td>
+              <td style="word-wrap: break-word; width: 49%;"><%= @sheet.title %></td>
               <td><%= "#{@sheet.favorites.count}" %></td>
               <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
