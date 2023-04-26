@@ -6,17 +6,17 @@
     <table class="table table-hover table-inverse small">
       <thead>
         <tr>
-          <th "text-nowrap">
+          <th>
             <%= link_to user_path(current_user.id) do %>
               <%= "#{current_user.sheets.count}" %>
             <% end %>
           </th>
-          <th "text-nowrap">
+          <th>
             <%= link_to user_followings_path(user_id: current_user.id) do %>
               <%= "#{current_user.followings.count}" %>
             <% end %>
           </th>
-          <th "text-nowrap">
+          <th>
             <%= link_to user_followers_path(user_id: current_user.id) do %>
               <%= "#{current_user.followers.count}" %>
             <% end %>
@@ -25,9 +25,9 @@
       </thead>
       <tbody>
         <tr>
-          <td class="text-nowrap">投稿</td>
-          <td class="text-nowrap">フォロー</td>
-          <td class="text-nowrap">フォロワー</td>
+          <td>投稿</td>
+          <td>フォロー</td>
+          <td>フォロワー</td>
         </tr>
       </tbody>
     </table>
