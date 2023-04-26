@@ -35,7 +35,7 @@ Qiitaでも内容共有はできるが、他者に見てもらうことに重点
 [![Image from Gyazo](https://i.gyazo.com/b030fdbbbb583b74e057e5cd6a4bddcd.png)](https://gyazo.com/b030fdbbbb583b74e057e5cd6a4bddcd)
 
 # 画面遷移図
-[![Image from Gyazo](https://i.gyazo.com/1d7d45925b172ac6b3f367856f68c0bc.png)](https://gyazo.com/1d7d45925b172ac6b3f367856f68c0bc)
+[![Image from Gyazo](https://i.gyazo.com/18991f11a7da3f339439fd1756ca8bad.png)](https://gyazo.com/18991f11a7da3f339439fd1756ca8bad)
 
 # 開発環境
 ・フロントエンド<br>
