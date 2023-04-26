@@ -35,6 +35,8 @@
       <%= link_to edit_user_path(current_user.id), class: "btn  btn-success  btn-block" do %>
         ユーザー情報編集へ<i class="fas fa-user-cog"></i>
       <% end %>
+    <% else %>
+      <div class="btn btn-secondary btn-block">ユーザー情報編集へ<i class="fas fa-user-cog"></i></div>
     <% end %>
   </div>
 </div>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :users_matching_login_user, only: [:edit, :update]
-  before_action :ensure_guest_user, only: [:edit]
+  before_action :ensure_guest_user, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -33,8 +33,8 @@ class UsersController < ApplicationController
 
   def ensure_guest_user
     @user = User.find(params[:id])
-    return unless @user.name == 'guestuser'
-
-    redirect_to user_path(current_user), notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
-  end
+    if @user.name == "guestuser"
+      redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+    end
+  end  
 end
