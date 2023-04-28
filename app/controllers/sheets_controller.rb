@@ -16,13 +16,13 @@ class SheetsController < ApplicationController
   end
 
   def index
-    @sheets = Sheet.includes(:user).order(created_at: :DESC)
+    @sheets = Sheet.includes(:user).order(created_at: :DESC).page(params[:page])
   end
 
   def show
     @sheet = Sheet.find(params[:id])
     @comment = Comment.new
-    @comments = @sheet.comments.includes(:user).order(created_at: :DESC)
+    @comments = @sheet.comments.includes(:user).order(created_at: :DESC).page(params[:page])
     @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
   end
 
