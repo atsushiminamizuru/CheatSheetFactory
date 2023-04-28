@@ -16,7 +16,7 @@ class SheetsController < ApplicationController
   end
 
   def index
-    @sheets = Sheet.includes(:user).order(created_at: :DESC).page(params[:page])
+    @sheets = Sheet.includes(:user, :favorites).order(created_at: :DESC).page(params[:page])
   end
 
   def show

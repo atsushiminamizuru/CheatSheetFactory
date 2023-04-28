@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @sheets = @user.sheets.includes(:user).order(created_at: :DESC).page(params[:page])
+    @sheets = @user.sheets.includes(:user, :favorites).order(created_at: :DESC).page(params[:page])
     @relationship = Relationship.find_by(following_id: current_user.id, follower_id: @user.id)
   end
 
