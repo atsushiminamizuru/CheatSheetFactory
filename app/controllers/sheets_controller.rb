@@ -45,7 +45,7 @@ class SheetsController < ApplicationController
   end
 
   def search
-    @sheets = Sheet.search(params[:keyword])
+    @sheets = Sheet.search(params[:keyword], params[:page])
     render :index
   end
 

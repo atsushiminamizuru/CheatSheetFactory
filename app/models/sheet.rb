@@ -15,11 +15,11 @@ class Sheet < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :genre
 
-  def self.search(search)
+  def self.search(search, page)
     if search != ''
-      Sheet.includes(:user, :favorites).where('title LIKE(?)', "%#{search}%").order(created_at: :DESC).page(params[:page])
+      Sheet.includes(:user, :favorites).where('title LIKE(?)', "%#{search}%").order(created_at: :DESC).page(page)
     else
-      Sheet.includes(:user, :favorites).order(created_at: :DESC).page(params[:page])
+      Sheet.includes(:user, :favorites).order(created_at: :DESC).page(page)
     end
   end
 end
