@@ -125,31 +125,7 @@
           <% end %>
         </table>
       </div>
-      <nav>
-        <ul class="pagination">
-          <% if @sheets.prev_page %>
-            <li class="page-item">
-              <%= link_to '前へ', user_path(page: @sheets.prev_page), class: 'page-link' %>
-            </li>
-          <% end %>
-          <% @sheets.total_pages.times do |i| %>
-            <% if @sheets.current_page == i + 1 %>
-              <li class="page-item active" aria-current="page">
-                <%= link_to i + 1, user_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% else %>
-              <li class="page-item">
-                <%= link_to i + 1, user_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @sheets.next_page %>
-            <li class="page-item">
-              <%= link_to '次へ', user_path(page: @sheets.next_page), class: 'page-link' %>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= paginate @sheets %>
     </div>
   
   </div>

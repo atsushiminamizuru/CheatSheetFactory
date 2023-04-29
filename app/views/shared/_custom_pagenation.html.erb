@@ -1,0 +1,51 @@
+<!--今回はkaminari:views bootstrap4を使う為、使用せず-->
+
+<nav>
+  <ul class="pagination">
+    <% if items.prev_page %>
+      <li class="page-item">
+        <%= link_to '前へ', path_method.call(items.prev_page), class: 'page-link' %>
+      </li>
+    <% end %>
+    
+      <% start_page = [1, items.current_page - 1].max %>
+      <% end_page = [items.current_page + 1, items.total_pages].min %>
+        <% if start_page > 1 %>
+          <li class="page-item">
+            <%= link_to 1, path_method.call(1), class: 'page-link' %>
+          </li>
+        <% end %>
+        <% if start_page > 2 %>
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+        <% end %>
+        <% (start_page..end_page).each do |i| %>
+          <% if items.current_page == i %>
+            <li class="page-item active" aria-current="page">
+              <%= link_to i, path_method.call(i), class: 'page-link' %>
+            </li>
+          <% else %>
+            <li class="page-item">
+              <%= link_to i, path_method.call(i), class: 'page-link' %>
+            </li>
+          <% end %>
+        <% end %>
+        <% if end_page < items.total_pages - 1 %>
+          <li class="page-item disabled">
+            <span class="page-link">...</span>
+          </li>
+        <% end %>
+        <% if end_page < items.total_pages %>
+          <li class="page-item">
+            <%= link_to items.total_pages, path_method.call(items.total_pages), class: 'page-link' %>
+          </li>
+        <% end %>
+        
+    <% if items.next_page %>
+      <li class="page-item">
+        <%= link_to '次へ', path_method.call(items.next_page), class: 'page-link' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

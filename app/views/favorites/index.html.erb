@@ -7,31 +7,7 @@
     <div class="col-md-8 offset-md-1">
       <h2><%= "#{@user.name}様のお気に入り投稿一覧" %></h2>
       <%= render "sheets/list", sheets: @user_favorite_sheets %>
-      <nav>
-        <ul class="pagination">
-          <% if @user_favorite_sheets.prev_page %>
-            <li class="page-item">
-              <%= link_to '前へ', user_favorites_path(page: @user_favorite_sheets.prev_page), class: 'page-link' %>
-            </li>
-          <% end %>
-          <% @user_favorite_sheets.total_pages.times do |i| %>
-            <% if @user_favorite_sheets.current_page == i + 1 %>
-              <li class="page-item active" aria-current="page">
-                <%= link_to i + 1, user_favorites_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% else %>
-              <li class="page-item">
-                <%= link_to i + 1, user_favorites_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @user_favorite_sheets.next_page %>
-            <li class="page-item">
-              <%= link_to '次へ', user_favorites_path(page: @user_favorite_sheets.next_page), class: 'page-link' %>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= paginate @user_favorite_sheets %>
     </div>
 
   </div>

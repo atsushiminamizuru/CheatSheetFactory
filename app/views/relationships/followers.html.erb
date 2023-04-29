@@ -7,31 +7,7 @@
     <div class="col-md-8 offset-md-1">
       <h2><%= "#{@user.name}様のフォロワーの一覧" %></h2>
       <%= render "relationship", users: @user_followers %>
-      <nav>
-        <ul class="pagination">
-          <% if @user_followers.prev_page %>
-            <li class="page-item">
-              <%= link_to '前へ', user_followers_path(page: @user_followers.prev_page), class: 'page-link' %>
-            </li>
-          <% end %>
-          <% @user_followers.total_pages.times do |i| %>
-            <% if @user_followers.current_page == i + 1 %>
-              <li class="page-item active" aria-current="page">
-                <%= link_to i + 1, user_followers_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% else %>
-              <li class="page-item">
-                <%= link_to i + 1, user_followers_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @user_followers.next_page %>
-            <li class="page-item">
-              <%= link_to '次へ', user_followers_path(page: @user_followers.next_page), class: 'page-link' %>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= paginate @user_followers %>
     </div>
 
   </div>

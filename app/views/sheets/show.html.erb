@@ -164,31 +164,7 @@
           <% end %>
         </table>
       </div>
-      <nav>
-        <ul class="pagination">
-          <% if @comments.prev_page %>
-            <li class="page-item">
-              <%= link_to '前へ', sheet_path(page: @comments.prev_page), class: 'page-link' %>
-            </li>
-          <% end %>
-          <% @comments.total_pages.times do |i| %>
-            <% if @comments.current_page == i + 1 %>
-              <li class="page-item active" aria-current="page">
-                <%= link_to i + 1, sheet_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% else %>
-              <li class="page-item">
-                <%= link_to i + 1, sheet_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @comments.next_page %>
-            <li class="page-item">
-              <%= link_to '次へ', sheet_path(page: @comments.next_page), class: 'page-link' %>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= paginate @comments %>
     </div>
 
   </div>

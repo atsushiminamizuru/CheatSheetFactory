@@ -7,31 +7,7 @@
     <div class="col-md-8 offset-md-1">
       <h2><%= "#{@user.name}様のフォローの一覧" %></h2>
       <%= render "relationship", users: @user_followings %>
-      <nav>
-        <ul class="pagination">
-          <% if @user_followings.prev_page %>
-            <li class="page-item">
-              <%= link_to '前へ', user_followings_path(page: @user_followings.prev_page), class: 'page-link' %>
-            </li>
-          <% end %>
-          <% @user_followings.total_pages.times do |i| %>
-            <% if @user_followings.current_page == i + 1 %>
-              <li class="page-item active" aria-current="page">
-                <%= link_to i + 1, user_followings_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% else %>
-              <li class="page-item">
-                <%= link_to i + 1, user_followings_path(page: i + 1), class: 'page-link' %>
-              </li>
-            <% end %>
-          <% end %>
-          <% if @user_followings.next_page %>
-            <li class="page-item">
-              <%= link_to '次へ', user_followings_path(page: @user_followings.next_page), class: 'page-link' %>
-            </li>
-          <% end %>
-        </ul>
-      </nav>
+      <%= paginate @user_followings %>
     </div>
 
   </div>
