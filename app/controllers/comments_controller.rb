@@ -44,6 +44,6 @@ class CommentsController < ApplicationController
 
   def render_sheets_show
     @sheet = Sheet.find(params[:sheet_id])
-    @comments = @sheet.comments.includes(:user).order(created_at: :DESC)
+    @comments = @sheet.comments.includes(:user).order(created_at: :DESC).page(params[:page])
   end
 end

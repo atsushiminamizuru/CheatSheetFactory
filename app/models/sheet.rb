@@ -17,9 +17,9 @@ class Sheet < ApplicationRecord
 
   def self.search(search)
     if search != ''
-      Sheet.where('title LIKE(?)', "%#{search}%").order(created_at: :DESC)
+      Sheet.includes(:user, :favorites).where('title LIKE(?)', "%#{search}%").order(created_at: :DESC).page(params[:page])
     else
-      Sheet.includes(:user).order(created_at: :DESC)
+      Sheet.includes(:user, :favorites).order(created_at: :DESC).page(params[:page])
     end
   end
 end
