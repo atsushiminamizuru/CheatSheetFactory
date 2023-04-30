@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
   before_action :users_matching_login_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit, :update]
+  before_action :users_loading_of_login_user, only: [:show]
 
   def show
-    @user = User.find(params[:id])
-    @sheets = @user.sheets.includes(:user, :favorites).order(created_at: :DESC).page(params[:page])
+    @user = User.with_attached_profile_image.includes(:sheets, :followings, :followers, :favorites).find(params[:id])
+    @sheets = @user.sheets.with_attached_image.includes({ user: :profile_image_attachment },
+                                                        :favorites).order(created_at: :DESC).page(params[:page])
     @relationship = Relationship.find_by(following_id: current_user.id, follower_id: @user.id)
   end
 
@@ -35,5 +37,9 @@ class UsersController < ApplicationController
     return unless @user.name == 'guestuser'
 
     redirect_to user_path(current_user), notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+  end
+
+  def users_loading_of_login_user
+    @load_login_user = User.with_attached_profile_image.includes(:sheets, :followings, :followers).find(current_user.id)
   end
 end

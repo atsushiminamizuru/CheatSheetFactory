@@ -9,7 +9,7 @@
   <div class="row">
       
     <div class="col-md-3">
-      <%= render "users/userinfo", current_user: current_user %>
+      <%= render "users/userinfo", user: @load_login_user %>
       <div class="card">
         <div class="card-body text-center">
         <% if current_user.id == @sheet.user_id %>
@@ -89,13 +89,13 @@
             <tr>
               <td>
                 <%= link_to user_path(@sheet.user_id) do %>
-                  <%= image_tag @sheet.user.get_profile_image(70, 70) %><br>
+                  <%= image_tag @sheet.user.attach_profile_image, size: "70x70" %><br>
                   <%= @sheet.user.name %>
                 <% end %>
               </td>
               <td><%= @sheet.genre.name %></td>
               <td style="word-wrap: break-word; width: 48%;"><%= @sheet.title %></td>
-              <td><%= "#{@sheet.favorites.count}" %></td>
+              <td><%= "#{@sheet.favorites.size}" %></td>
               <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to "削除",sheet_path(@sheet.id), class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>
@@ -137,7 +137,7 @@
             <tr>
               <td>
                 <%= link_to user_path(comment.user_id) do %>
-                  <%= image_tag comment.user.get_profile_image(70, 70) %><br>
+                  <%= image_tag comment.user.attach_profile_image, size: "70x70" %><br>
                   <%= comment.user.name %>
                 <% end %>
               </td>

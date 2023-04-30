@@ -17,9 +17,11 @@ class Sheet < ApplicationRecord
 
   def self.search(search, page)
     if search != ''
-      Sheet.includes(:user, :favorites).where('title LIKE(?)', "%#{search}%").order(created_at: :DESC).page(page)
+      Sheet.with_attached_image.includes({ user: :profile_image_attachment }, :favorites)
+           .where('title LIKE(?)', "%#{search}%")
+           .order(created_at: :DESC).page(page)
     else
-      Sheet.includes(:user, :favorites).order(created_at: :DESC).page(page)
+      Sheet.with_attached_image.includes({ user: :profile_image_attachment }, :favorites).order(created_at: :DESC).page(page)
     end
   end
 end

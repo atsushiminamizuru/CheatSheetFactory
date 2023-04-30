@@ -9,7 +9,7 @@
   <div class="row">
     
     <div class="col-md-3">
-      <%= render "userinfo", current_user: current_user %>
+      <%= render "users/userinfo", user: @load_login_user %>
       <div class="card">
         <div class="card-body text-center">
         <% if current_user.id == @user.id %>
@@ -45,21 +45,21 @@
           </thead>
           <tbody class="bg-white">
             <tr>
-              <td><%= image_tag @user.get_profile_image(70, 70) %></td>
-              <td><%= "#{@user.sheets.count}個" %></td>
+              <td><%= image_tag @user.attach_profile_image, size: "70x70" %></td>
+              <td><%= "#{@user.sheets.size}個" %></td>
               <td>
                 <%= link_to user_followings_path(user_id: @user.id) do %>
-                  <%= "#{@user.followings.count}人" %>
+                  <%= "#{@user.followings.size}人" %>
                 <% end %>
               </td>
               <td>
                 <%= link_to user_followers_path(user_id: @user.id) do %>
-                  <%= "#{@user.followers.count}人" %>
+                  <%= "#{@user.followers.size}人" %>
                 <% end %>
               </td>
               <td>
                 <%= link_to user_favorites_path(user_id: @user.id) do %>
-                  <%= "#{@user.favorites.count}回" %>
+                  <%= "#{@user.favorites.size}回" %>
                 <% end %>
               </td>
             </tr>
@@ -101,7 +101,7 @@
             <% @sheets.each do |sheet| %>
             <tr>
               <td>
-                <%= image_tag sheet.user.get_profile_image(70, 70) %><br>
+                <%= image_tag sheet.user.attach_profile_image, size: "70x70" %><br>
                 <%= sheet.user.name %>
               </td>
               <td><%= sheet.genre.name %></td>
@@ -110,7 +110,7 @@
                   <%= sheet.title %>
                 <% end %>
               </td>
-              <td><%= "#{sheet.favorites.count}" %></td>
+              <td><%= "#{sheet.favorites.size}" %></td>
             </tr>
             <% end %>
           </tbody>

@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :comments_matching_login_user, only: [:edit, :update, :destroy]
   before_action :render_sheets_show, only: [:create, :edit, :update]
+  before_action :comments_loading_of_login_user, only: [:create, :edit, :update]
 
   def create
     @comment = Comment.new(comment_params)
@@ -43,7 +44,11 @@ class CommentsController < ApplicationController
   end
 
   def render_sheets_show
-    @sheet = Sheet.find(params[:sheet_id])
-    @comments = @sheet.comments.includes(:user).order(created_at: :DESC).page(params[:page])
+    @sheet = Sheet.with_attached_image.includes({ user: :profile_image_attachment }, :favorites).find(params[:sheet_id])
+    @comments = @sheet.comments.includes(user: :profile_image_attachment).order(created_at: :DESC).page(params[:page])
+  end
+
+  def comments_loading_of_login_user
+    @load_login_user = User.with_attached_profile_image.includes(:sheets, :followings, :followers).find(current_user.id)
   end
 end

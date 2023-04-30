@@ -14,7 +14,7 @@
       <tr>
         <td>
           <%= link_to user_path(sheet.user_id) do %>
-            <%= image_tag sheet.user.get_profile_image(70, 70) %><br>
+            <%= image_tag sheet.user.attach_profile_image, size: "70x70" %><br>
             <%= sheet.user.name %>
           <% end %>
         </td>
@@ -24,7 +24,7 @@
             <%= sheet.title %>
           <% end %>
         </td>
-        <td><%= "#{sheet.favorites.count}" %></td>
+        <td><%= "#{sheet.favorites.size}" %></td>
       </tr>
       <% end %>
     </tbody>
