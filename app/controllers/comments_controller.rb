@@ -49,6 +49,8 @@ class CommentsController < ApplicationController
   end
 
   def comments_loading_of_login_user
-    @load_login_user = User.with_attached_profile_image.includes(:sheets, :followings, :followers).find(current_user.id)
+    @load_login_user = User.with_attached_profile_image
+                           .includes({ sheets: :image_attachment }, :followings, :followers)
+                           .find(current_user.id)
   end
 end
