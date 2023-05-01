@@ -24,9 +24,9 @@ class SheetsController < ApplicationController
   end
 
   def show
-    @sheet = Sheet.with_attached_image.includes({ user: :profile_image_attachment }, :favorites).find(params[:id])
+    @sheet = Sheet.with_attached_image.includes({ user: { profile_image_attachment: :blob }, image_attachment: :blob }).find(params[:id])
     @comment = Comment.new
-    @comments = @sheet.comments.includes(user: :profile_image_attachment).order(created_at: :DESC).page(params[:page])
+    @comments = @sheet.comments.includes(user: { profile_image_attachment: :blob }).order(created_at: :DESC).page(params[:page])
     @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
   end
 

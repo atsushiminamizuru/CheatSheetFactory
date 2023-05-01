@@ -44,13 +44,11 @@ class CommentsController < ApplicationController
   end
 
   def render_sheets_show
-    @sheet = Sheet.with_attached_image.includes({ user: :profile_image_attachment }, :favorites).find(params[:sheet_id])
-    @comments = @sheet.comments.includes(user: :profile_image_attachment).order(created_at: :DESC).page(params[:page])
+    @sheet = Sheet.with_attached_image.includes({ user: { profile_image_attachment: :blob }, image_attachment: :blob }).find(params[:sheet_id])
+    @comments = @sheet.comments.includes(user: { profile_image_attachment: :blob }).order(created_at: :DESC).page(params[:page])
   end
 
   def comments_loading_of_login_user
-    @load_login_user = User.with_attached_profile_image
-                           .includes({ sheets: :image_attachment }, :followings, :followers)
-                           .find(current_user.id)
+    @load_login_user = User.with_attached_profile_image.find(current_user.id)
   end
 end
