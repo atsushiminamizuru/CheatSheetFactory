@@ -18,7 +18,7 @@ class SheetsController < ApplicationController
 
   def index
     @sheets = Sheet.with_attached_image
-                   .includes({ user: :profile_image_attachment }, :favorites)
+                   .includes({ user: { profile_image_attachment: :blob }, image_attachment: :blob })
                    .order(created_at: :DESC)
                    .page(params[:page])
   end
@@ -65,8 +65,6 @@ class SheetsController < ApplicationController
   end
 
   def sheets_loading_of_login_user
-    @load_login_user = User.with_attached_profile_image
-                           .includes({ sheets: :image_attachment }, :followings, :followers)
-                           .find(current_user.id)
+    @load_login_user = User.with_attached_profile_image.find(current_user.id)
   end
 end
