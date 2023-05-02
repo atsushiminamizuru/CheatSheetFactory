@@ -16,27 +16,11 @@ class RelationshipsController < ApplicationController
 
   def followings
     @user = User.find(params[:user_id])
-
-    @user_followings = @user.followings
-                            .with_attached_profile_image
-                            .order('relationships.created_at DESC')
-                            .page(params[:page])
-
-    @load_login_user = User.with_attached_profile_image
-                           .includes({ sheets: :image_attachment }, :followings, :followers)
-                           .find(current_user.id)
+    @user_followings = @user.followings.with_attached_profile_image.order('relationships.created_at DESC').page(params[:page])
   end
 
   def followers
     @user = User.find(params[:user_id])
-
-    @user_followers = @user.followers
-                           .with_attached_profile_image
-                           .order('relationships.created_at DESC')
-                           .page(params[:page])
-
-    @load_login_user = User.with_attached_profile_image
-                           .includes({ sheets: :image_attachment }, :followings, :followers)
-                           .find(current_user.id)
+    @user_followers = @user.followers.with_attached_profile_image.order('relationships.created_at DESC').page(params[:page])
   end
 end

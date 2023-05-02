@@ -9,7 +9,7 @@
   <div class="row">
       
     <div class="col-md-3">
-      <%= render "users/userinfo", user: @load_login_user %>
+      <%= render "users/userinfo", user: current_user %>
       <div class="card">
         <div class="card-body text-center">
         <% if current_user.id == @sheet.user_id %>
@@ -66,7 +66,7 @@
           </thead>
           <tbody class="bg-white">
             <tr>
-              <td><%= image_tag @sheet.image, size: "700x1000" %></td>
+              <td><%= image_tag @sheet.image.variant(resize_to_fill: [700, 1000]) %></td>
             </tr>
           </tbody>
         </table>
@@ -89,7 +89,7 @@
             <tr>
               <td>
                 <%= link_to user_path(@sheet.user_id) do %>
-                  <%= image_tag @sheet.user.attach_profile_image, size: "70x70" %><br>
+                  <%= image_tag @sheet.user.attach_profile_image.variant(resize_to_limit: [70, 70]) %><br>
                   <%= @sheet.user.name %>
                 <% end %>
               </td>
@@ -137,7 +137,7 @@
             <tr>
               <td>
                 <%= link_to user_path(comment.user_id) do %>
-                  <%= image_tag comment.user.attach_profile_image, size: "70x70" %><br>
+                  <%= image_tag comment.user.attach_profile_image.variant(resize_to_limit: [70, 70]) %><br>
                   <%= comment.user.name %>
                 <% end %>
               </td>

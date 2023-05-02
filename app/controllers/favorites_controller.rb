@@ -17,15 +17,10 @@ class FavoritesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
 
-    user_favorites_sheets = @user.favorites
-                                 .includes(sheet: { user: :profile_image_attachment, image_attachment: :blob })
+    @user_favorite_sheets = Sheet.includes(user: { profile_image_attachment: :blob })
+                                 .joins(:favorites)
+                                 .where(favorites: { user_id: @user.id })
                                  .order('favorites.created_at DESC')
-                                 .map(&:sheet)
-
-    @user_favorite_sheets = Kaminari.paginate_array(user_favorites_sheets).page(params[:page])
-
-    @load_login_user = User.with_attached_profile_image
-                           .includes({ sheets: :image_attachment }, :followings, :followers)
-                           .find(current_user.id)
+                                 .page(params[:page])
   end
 end
