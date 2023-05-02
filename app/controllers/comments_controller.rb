@@ -45,5 +45,6 @@ class CommentsController < ApplicationController
   def render_sheets_show
     @sheet = Sheet.find(params[:sheet_id])
     @comments = @sheet.comments.includes(user: { profile_image_attachment: :blob }).order(created_at: :DESC).page(params[:page])
+    @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
   end
 end
