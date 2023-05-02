@@ -66,7 +66,11 @@
           </thead>
           <tbody class="bg-white">
             <tr>
-              <td><%= image_tag @sheet.image.variant(resize_to_fill: [700, 1000]) %></td>
+              <td>
+                <%= link_to url_for(@sheet.image) do %>
+                  <%= image_tag @sheet.image.variant(resize_to_fill: [700, 1000]) %>
+                <% end %>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -94,7 +98,7 @@
                 <% end %>
               </td>
               <td><%= @sheet.genre.name %></td>
-              <td style="word-wrap: break-word; width: 48%;"><%= @sheet.title %></td>
+              <td style="word-wrap: break-word; width: 47%;"><%= @sheet.title %></td>
               <td><%= "#{@sheet.favorites.size}" %></td>
               <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
