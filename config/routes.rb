@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get 'search'
     end
     resources :favorites, only: [:create, :destroy]
+    get :download, on: :member
   end
   
   resources :users, only:[:show, :edit, :update, :destroy] do

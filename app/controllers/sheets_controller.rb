@@ -48,6 +48,13 @@ class SheetsController < ApplicationController
     @sheets = Sheet.search(params[:keyword], params[:page])
     render :index
   end
+  
+  def download
+    @sheet = Sheet.find(params[:id])
+    sheet_image = @sheet.image.find(params[:image_id])
+    file = sheet_image.download
+    send_data(file, filename: "picture#{params[:image_id]}.jpg")
+  end
 
   private
 
