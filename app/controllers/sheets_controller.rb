@@ -48,7 +48,7 @@ class SheetsController < ApplicationController
     @sheets = Sheet.search(params[:keyword], params[:page])
     render :index
   end
-
+  
   def download
     @sheet = Sheet.find(params[:id])
     download_file = @sheet.image.download
