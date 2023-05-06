@@ -61,15 +61,26 @@
         <table class="table table-hover table-inverse">
           <thead class="bg-info">
             <tr>
-              <th>Cheat Sheet</th>
+              <th>
+                <h3>Cheat Sheet</h3>
+                <span style="font-size: 10px;">
+                (
+                <%= link_to url_for(@sheet.image), class: "btn btn-sm btn-success", target: "_blank", style: "font-size: 10px;" do %>
+                  新しいタブで表示 <i class="fas fa-external-link-alt"></i>
+                <% end %>
+                /
+                <%= link_to download_sheet_path(id: @sheet.id), class: "btn btn-sm btn-primary", style: "font-size: 10px;" do %>
+                  ダウンロード <i class="fas fa-download"></i>
+                <% end %>
+                )
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody class="bg-white">
             <tr>
               <td>
-                <%= link_to url_for(@sheet.image) do %>
-                  <%= image_tag @sheet.image.variant(resize_to_fill: [700, 1000]) %>
-                <% end %>
+                <%= image_tag @sheet.image.variant(resize_to_limit: [700, 1000]), style: "width:100%; height:auto;" %>
               </td>
             </tr>
           </tbody>
