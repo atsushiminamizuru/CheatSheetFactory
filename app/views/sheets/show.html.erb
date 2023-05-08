@@ -18,11 +18,7 @@
         <% else %>
           <h3>この投稿を</h3>
           <div id="favorite-btn<%= @sheet.id %>">
-            <% if @favorite.present? %>
-              <%= link_to "いいね済", sheet_favorite_path(sheet_id: @sheet.id, id: @favorite.id),  method: :delete, class: "btn btn-danger" %>
-            <% else %>
-              <%= link_to "いいねする", sheet_favorites_path(sheet_id: @sheet.id), method: :post, class: "btn btn-success" %>
-            <% end %>
+            <%= render partial: 'favorites/favorite', locals: {sheet: @sheet, favorite: @favorite} %>
           </div>
         <% end %>
         </div>
@@ -110,7 +106,7 @@
               </td>
               <td><%= @sheet.genre.name %></td>
               <td style="word-wrap: break-word; width: 47%;"><%= @sheet.title %></td>
-              <td><%= "#{@sheet.favorites.size}" %></td>
+              <td id="favorite-count<%= @sheet.id %>"><%= "#{@sheet.favorites.size}" %></td>
               <% if @sheet.user_id == current_user.id %>
               <td><%= link_to "編集",edit_sheet_path(@sheet.id), class: "btn btn-sm btn-success" %></td>
               <td><%= link_to "削除",sheet_path(@sheet.id), class: "btn btn-sm btn-danger",method: :delete,"data-confirm" => "本当に消しますか？" %></td>

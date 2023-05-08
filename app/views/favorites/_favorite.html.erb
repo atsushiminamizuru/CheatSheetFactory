@@ -1,0 +1,5 @@
+<% if favorite.present? %>
+  <%= link_to "いいね済", sheet_favorite_path(sheet_id: sheet.id, id: favorite.id),  method: :delete, class: "btn btn-danger", remote: true %>
+<% else %>
+  <%= link_to "いいねする", sheet_favorites_path(sheet_id: sheet.id), method: :post, class: "btn btn-success", remote: true %>
+<% end %>

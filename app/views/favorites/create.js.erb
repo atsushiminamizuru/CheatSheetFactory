@@ -1,0 +1,2 @@
+document.getElementById('favorite-btn<%= @sheet.id %>').innerHTML = "<%= j(render partial: 'favorites/favorite', locals: {sheet: @sheet, favorite: @favorite}) %>";
+document.getElementById('favorite-count<%= @sheet.id %>').innerHTML = "<%= @sheet.favorites.size %>";
