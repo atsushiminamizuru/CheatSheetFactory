@@ -1,0 +1,3 @@
+document.getElementById('follow-btn<%= @user.id %>').innerHTML = "<%= j(render partial: 'relationships/follow', locals: {user: @user, relationship: @relationship}) %>";
+document.getElementById('login-user-following-count').innerHTML = "<%= current_user.followings.size %>";
+document.getElementById('follower-count<%= @user.id %>').innerHTML = "<%= @user.followers.size %>人";

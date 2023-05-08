@@ -17,12 +17,8 @@
           <h3>自分です</h3>
         <% else %>
           <h3>このユーザーを</h3>
-          <div id="relationship-btn<%= @user.id %>">
-            <% if @relationship.present? %>
-              <%= link_to "フォロー済", user_relationship_path(user_id: @user.id, id: @relationship.id),  method: :delete, class: "btn btn-danger" %>
-            <% else %>
-              <%= link_to "フォローする", user_relationships_path(user_id: @user.id), method: :post, class: "btn btn-success" %>
-            <% end %>
+          <div id="follow-btn<%= @user.id %>">
+            <%= render partial: 'relationships/follow', locals: {user: @user, relationship: @relationship} %>
           </div>
         <% end %>
         </div>
@@ -49,12 +45,14 @@
               <td><%= "#{@user.sheets.size}個" %></td>
               <td>
                 <%= link_to user_followings_path(user_id: @user.id) do %>
-                  <%= "#{@user.followings.size}人" %>
+                    <%= "#{@user.followings.size}人" %>
                 <% end %>
               </td>
               <td>
                 <%= link_to user_followers_path(user_id: @user.id) do %>
-                  <%= "#{@user.followers.size}人" %>
+                  <span id="follower-count<%= @user.id %>">
+                    <%= "#{@user.followers.size}人" %>
+                  </span>
                 <% end %>
               </td>
               <td>

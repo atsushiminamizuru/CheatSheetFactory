@@ -13,7 +13,9 @@
           </th>
           <th>
             <%= link_to user_followings_path(user_id: user.id) do %>
-              <%= "#{user.followings.size}" %>
+              <span id="login-user-following-count">
+                <%= "#{user.followings.size}" %>
+              </span>
             <% end %>
           </th>
           <th>
