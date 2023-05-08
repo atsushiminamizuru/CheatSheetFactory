@@ -5,6 +5,7 @@ class FavoritesController < ApplicationController
     @favorite = Favorite.new(user_id: current_user.id, sheet_id: params[:sheet_id])
     @favorite.save
     @sheet.reload
+    @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
     render 'create.js.erb'
   end
 
@@ -13,6 +14,7 @@ class FavoritesController < ApplicationController
     redirect_to root_path unless current_user.id == @favorite.user_id
     @favorite.destroy
     @sheet.reload
+    @favorite = Favorite.find_by(user_id: current_user.id, sheet_id: @sheet.id)
     render 'destroy.js.erb'
   end
 
