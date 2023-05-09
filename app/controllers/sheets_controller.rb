@@ -53,7 +53,7 @@ class SheetsController < ApplicationController
     @sheet = Sheet.find(params[:id])
     download_file = @sheet.image.download
     image_extension = @sheet.image.filename.extension
-    new_filename = "picture#{params[:id]}#{image_extension}"
+    new_filename = "picture#{params[:id]}.#{image_extension}"
     send_data(download_file, filename: new_filename, type: @sheet.image.content_type)
   end
 
